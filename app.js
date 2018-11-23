@@ -9,8 +9,19 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying,finalScore;
 
+finalScore = 20;
+
+var sizePicker = document.querySelector('input[type="range"]');
+var output = document.querySelector('.output');
+var clearBtn = document.querySelector('input[type="button"]');
+
+// update sizepicker output value
+
+sizePicker.oninput = function() {
+    output.textContent = sizePicker.value;
+}
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
@@ -53,7 +64,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         //next player
 
         //check if player won the game
-        if(scores[activePlayer] > 19) {
+        if(scores[activePlayer] >= finalScore) {
             document.querySelector('#name-' + activePlayer).textContent = "WINNER!"
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + "-panel").classList.add("winner");
@@ -106,3 +117,12 @@ function init() {
     document.getElementById('name-0').textContent = 'Player 1';
     document.getElementById('name-1').textContent = 'Player 2';
 }
+
+
+
+
+
+
+document.querySelector('.btn-set').addEventListener('click',function(){
+    finalScore = output.textContent;
+})
